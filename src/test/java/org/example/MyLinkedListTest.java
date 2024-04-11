@@ -9,18 +9,18 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 /**
- * Класс для тестирования пользовательской реализации связного списка {@link MyList}.
+ * Класс для тестирования пользовательской реализации связного списка {@link MyLinkedList}.
  * Содержит набор тестовых методов для проверки функциональности списка, таких как добавление, удаление, получение элементов,
  * а также сортировка списка с использованием естественного порядка или пользовательского компаратора.
  */
-public class MyListTest {
+public class MyLinkedListTest {
     /**
      * Тестирует добавление одного элемента в список.
      * Проверяет, что после добавления элемент присутствует в списке на ожидаемой позиции.
      */
     @Test
     public void testAddSingleElement() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.add(1);
         assertEquals("Элемент должен быть добавлен в список.", (Integer) 1, list.get(0));
     }
@@ -31,7 +31,7 @@ public class MyListTest {
      */
     @Test
     public void testAddMultipleElements() {
-        MyList<String> list = new MyList<>();
+        MyLinkedList<String> list = new MyLinkedList<>();
         list.add("a");
         list.add("b");
         list.add("c");
@@ -44,7 +44,7 @@ public class MyListTest {
      */
     @Test
     public void testAddAtSpecificIndex() {
-        MyList<Double> list = new MyList<>();
+        MyLinkedList<Double> list = new MyLinkedList<>();
         list.add(1.1);
         list.add(2.2);
         list.add(1, 3.3);
@@ -57,7 +57,7 @@ public class MyListTest {
      */
     @Test
     public void testAddAtStart() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.add(1);
         list.add(0, 2);
         assertEquals("Элемент должен быть добавлен в начало списка.", (Integer) 2, list.get(0));
@@ -69,7 +69,7 @@ public class MyListTest {
      */
     @Test
     public void testAddAtEnd() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.add(1);
         list.add(2);
         list.add(list.getSize(), 3);
@@ -82,7 +82,7 @@ public class MyListTest {
      */
     @Test
     public void testAddLargeNumberOfElements() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         int elementsCount = 10000;
         for (int i = 0; i < elementsCount; i++) {
             list.add(i);
@@ -96,7 +96,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testAddOutOfBounds() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.add(-1, 1);
     }
 
@@ -106,7 +106,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetOutOfBounds() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.add(1);
         list.add(2);
         list.get(2);
@@ -118,7 +118,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetFromEmptyList() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.get(0);
     }
 
@@ -128,7 +128,7 @@ public class MyListTest {
      */
     @Test
     public void testRemoveSingleElement() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.add(1);
         list.remove(0);
         assertEquals("Список должен быть пуст после удаления элемента.", 0, list.getSize());
@@ -140,7 +140,7 @@ public class MyListTest {
      */
     @Test
     public void testRemoveSpecificElement() {
-        MyList<String> list = new MyList<>();
+        MyLinkedList<String> list = new MyLinkedList<>();
         list.add("a");
         list.add("b");
         list.add("c");
@@ -154,7 +154,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveFromEmptyList() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.remove(0);
     }
 
@@ -164,7 +164,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveOutOfBounds() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         for (int i = 0; i < 3; i++) {
             list.add(i);
         }
@@ -178,7 +178,7 @@ public class MyListTest {
      */
     @Test
     public void testRemoveAllElements() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         int elementsCount = 3;
         for (int i = 0; i < elementsCount; i++) {
             list.add(i);
@@ -198,7 +198,7 @@ public class MyListTest {
      */
     @Test
     public void testClearEmptyList() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.clear();
         assertEquals("Список должен быть пуст после очистки.", 0, list.getSize());
     }
@@ -209,7 +209,7 @@ public class MyListTest {
      */
     @Test
     public void testClearNonEmptyList() {
-        MyList<String> list = new MyList<>();
+        MyLinkedList<String> list = new MyLinkedList<>();
         list.add("a");
         list.add("b");
         list.add("c");
@@ -223,7 +223,7 @@ public class MyListTest {
      */
     @Test
     public void testSortWithIntegers() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.add(3);
         list.add(1);
         list.add(2);
@@ -237,7 +237,7 @@ public class MyListTest {
      */
     @Test
     public void testSortWithLargeData() {
-        MyList<Integer> list = new MyList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         Integer[] data = new Integer[100000];
         for (int i = 100000; i > 0; i--) {
             list.add(i - 1);
@@ -253,7 +253,7 @@ public class MyListTest {
      */
     @Test
     public void testSortWithReverseOrderComparator() {
-        MyList<String> list = new MyList<>();
+        MyLinkedList<String> list = new MyLinkedList<>();
         list.add("b");
         list.add("c");
         list.add("a");
@@ -268,7 +268,7 @@ public class MyListTest {
      */
     @Test
     public void testSortWithCustomReverseComparator() {
-        MyList<String> list = new MyList<>();
+        MyLinkedList<String> list = new MyLinkedList<>();
         list.add("bbb");
         list.add("aaaa");
         list.add("cc");
