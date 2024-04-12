@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
 public class MyArrayList<T extends Comparable<? super T>> {
@@ -64,12 +63,10 @@ public class MyArrayList<T extends Comparable<? super T>> {
         size = 0;
     }
 
-    @SuppressWarnings("unchecked")
     public void sort() {
         sort(Comparator.naturalOrder());
     }
 
-    @SuppressWarnings("unchecked")
     public void sort(Comparator<? super T> comparator) {
         if (size > 1) {
             for (int width = 1; width < size; width = 2 * width) {
@@ -124,12 +121,6 @@ public class MyArrayList<T extends Comparable<? super T>> {
         elements = copy;
     }
 
-//    private Object[] copyOf(Object[] original, int newLength) {
-//        Object[] copy = new Object[newLength];
-//        arrayCopy(original, 0, copy, 0, Math.min(original.length, newLength));
-//        return copy;
-//    }
-
     private void arrayCopy(Object[] src, int srcPos, Object[] dest, int destPos, int length) {
         if (src == dest) {
             Object[] temp = new Object[length];
@@ -144,6 +135,42 @@ public class MyArrayList<T extends Comparable<? super T>> {
                 dest[destPos + i] = src[srcPos + i];
             }
         }
+    }
+
+    public void quickSort() {
+        quickSort(0, size - 1, Comparator.naturalOrder());
+    }
+
+    public void quickSort(Comparator<? super T> comparator) {
+        quickSort(0, size - 1, comparator);
+    }
+
+    private void quickSort(int low, int high, Comparator<? super T> comparator) {
+        if (low < high) {
+            int pivotIndex = partition(low, high, comparator);
+            quickSort(low, pivotIndex - 1, comparator);
+            quickSort(pivotIndex + 1, high, comparator);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private int partition(int low, int high, Comparator<? super T> comparator) {
+        T pivot = (T) elements[high];
+        int i = (low - 1);
+        for (int j = low; j < high; j++) {
+            if (comparator.compare((T) elements[j], pivot) <= 0) {
+                i++;
+                swap(i, j);
+            }
+        }
+        swap(i + 1, high);
+        return i + 1;
+    }
+
+    private void swap(int i, int j) {
+        Object temp = elements[i];
+        elements[i] = elements[j];
+        elements[j] = temp;
     }
 
     @SuppressWarnings("unchecked")

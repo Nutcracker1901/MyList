@@ -32,7 +32,7 @@ public class MyArrayListTest {
         list.add(1.1);
         list.add(2.2);
         list.add(1, 3.3);
-        assertEquals("Элемент должен быть вставлен на указанный индекс.", (Double) 3.3, list.get(1));
+        assertEquals("Элемент должен быть вставлен на указанный индекс.", 3.3, list.get(1));
     }
 
     @Test
@@ -189,6 +189,50 @@ public class MyArrayListTest {
         list.add("cc");
         Comparator<String> lengthComparator = (s1, s2) -> Integer.compare(s2.length(), s1.length());
         list.sort(lengthComparator);
+        assertTrue("Список должен быть отсортирован по длине строки в обратном порядке.", Arrays.equals(list.toArray(), new String[]{"aaaa", "bbb", "cc"}));
+    }
+
+    @Test
+    public void testQuickSortWithIntegers() {
+        MyArrayList<Integer> list = new MyArrayList<>();
+        list.add(3);
+        list.add(1);
+        list.add(2);
+        list.quickSort();
+        assertTrue("Список должен быть отсортирован.", Arrays.equals(list.toArray(), new Integer[]{1, 2, 3}));
+    }
+
+    @Test
+    public void testQuickSortWithLargeData() {
+        MyArrayList<Integer> list = new MyArrayList<>();
+        Integer[] data = new Integer[10000];
+        for (int i = 10000; i > 0; i--) {
+            list.add(i - 1);
+            data[10000 - i] = 10000 - i;
+        }
+        list.quickSort();
+        assertTrue("Список с большим кол-вом элементов должен быть отсортирован.", Arrays.equals(list.toArray(), data));
+    }
+
+    @Test
+    public void testQuickSortWithReverseOrderComparator() {
+        MyArrayList<String> list = new MyArrayList<>();
+        list.add("b");
+        list.add("c");
+        list.add("a");
+        Comparator<String> reverseOrder = Comparator.reverseOrder();
+        list.quickSort(reverseOrder);
+        assertTrue("Список должен быть отсортирован в обратном порядке.", Arrays.equals(list.toArray(), new String[]{"c", "b", "a"}));
+    }
+
+    @Test
+    public void testQuickSortWithCustomReverseComparator() {
+        MyArrayList<String> list = new MyArrayList<>();
+        list.add("bbb");
+        list.add("aaaa");
+        list.add("cc");
+        Comparator<String> lengthComparator = (s1, s2) -> Integer.compare(s2.length(), s1.length());
+        list.quickSort(lengthComparator);
         assertTrue("Список должен быть отсортирован по длине строки в обратном порядке.", Arrays.equals(list.toArray(), new String[]{"aaaa", "bbb", "cc"}));
     }
 }

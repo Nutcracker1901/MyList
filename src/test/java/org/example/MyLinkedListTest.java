@@ -48,7 +48,7 @@ public class MyLinkedListTest {
         list.add(1.1);
         list.add(2.2);
         list.add(1, 3.3);
-        assertEquals("Элемент должен быть вставлен на указанный индекс.", (Double) 3.3, list.get(1));
+        assertEquals("Элемент должен быть вставлен на указанный индекс.", 3.3, list.get(1));
     }
 
     /**

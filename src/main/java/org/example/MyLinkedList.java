@@ -144,8 +144,8 @@ public class MyLinkedList<T extends Comparable<? super T>> {
             for (int width = 1; width < size; width = 2 * width) {
                 for (int i = 0; i < size; i = i + 2 * width) {
                     int left = i;
-                    int right = Math.min(i + width, (int) size);
-                    int end = Math.min(i + 2 * width, (int) size);
+                    int right = Math.min(i + width, size);
+                    int end = Math.min(i + 2 * width, size);
 
                     merge(nodeArray, left, right, end, comparator);
                 }
@@ -204,7 +204,6 @@ public class MyLinkedList<T extends Comparable<? super T>> {
     /**
      * Возвращает массив, содержащий все элементы этого списка в правильной последовательности (от первого до последнего элемента).
      * Этот метод служит мостом между API, основанными на массивах, и API, основанными на коллекциях.
-     *
      * Возвращаемый массив будет "безопасным" в том смысле, что этот список не будет содержать ссылок на него.
      * (Другими словами, этот метод должен выделить новый массив). Таким образом, вызывающий может свободно изменять
      * возвращаемый массив.
