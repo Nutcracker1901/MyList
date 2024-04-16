@@ -9,18 +9,18 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 /**
- * Класс для тестирования пользовательской реализации связного списка {@link MyList}.
+ * Класс для тестирования пользовательской реализации списка массивов {@link MyArrayList}.
  * Содержит набор тестовых методов для проверки функциональности списка, таких как добавление, удаление, получение элементов,
  * а также сортировка списка с использованием естественного порядка или пользовательского компаратора.
  */
-public class MyListTest {
+public class MyArrayListTest {
     /**
      * Тестирует добавление одного элемента в список.
      * Проверяет, что после добавления элемент присутствует в списке на ожидаемой позиции.
      */
     @Test
     public void testAddSingleElement() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.add(1);
         assertEquals("Элемент должен быть добавлен в список.", (Integer) 1, list.get(0));
     }
@@ -31,7 +31,7 @@ public class MyListTest {
      */
     @Test
     public void testAddMultipleElements() {
-        MyList<String> list = new MyList<>();
+        MyArrayList<String> list = new MyArrayList<>();
         list.add("a");
         list.add("b");
         list.add("c");
@@ -44,11 +44,11 @@ public class MyListTest {
      */
     @Test
     public void testAddAtSpecificIndex() {
-        MyList<Double> list = new MyList<>();
+        MyArrayList<Double> list = new MyArrayList<>();
         list.add(1.1);
         list.add(2.2);
         list.add(1, 3.3);
-        assertEquals("Элемент должен быть вставлен на указанный индекс.", (Double) 3.3, list.get(1));
+        assertEquals("Элемент должен быть вставлен на указанный индекс.", 3.3, list.get(1));
     }
 
     /**
@@ -57,7 +57,7 @@ public class MyListTest {
      */
     @Test
     public void testAddAtStart() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.add(1);
         list.add(0, 2);
         assertEquals("Элемент должен быть добавлен в начало списка.", (Integer) 2, list.get(0));
@@ -69,7 +69,7 @@ public class MyListTest {
      */
     @Test
     public void testAddAtEnd() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.add(1);
         list.add(2);
         list.add(list.getSize(), 3);
@@ -82,7 +82,7 @@ public class MyListTest {
      */
     @Test
     public void testAddLargeNumberOfElements() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         int elementsCount = 10000;
         for (int i = 0; i < elementsCount; i++) {
             list.add(i);
@@ -96,7 +96,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testAddOutOfBounds() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.add(-1, 1);
     }
 
@@ -106,7 +106,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetOutOfBounds() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.add(1);
         list.add(2);
         list.get(2);
@@ -118,7 +118,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetFromEmptyList() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.get(0);
     }
 
@@ -128,7 +128,7 @@ public class MyListTest {
      */
     @Test
     public void testRemoveSingleElement() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.add(1);
         list.remove(0);
         assertEquals("Список должен быть пуст после удаления элемента.", 0, list.getSize());
@@ -140,7 +140,7 @@ public class MyListTest {
      */
     @Test
     public void testRemoveSpecificElement() {
-        MyList<String> list = new MyList<>();
+        MyArrayList<String> list = new MyArrayList<>();
         list.add("a");
         list.add("b");
         list.add("c");
@@ -154,7 +154,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveFromEmptyList() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.remove(0);
     }
 
@@ -164,7 +164,7 @@ public class MyListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveOutOfBounds() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         for (int i = 0; i < 3; i++) {
             list.add(i);
         }
@@ -178,7 +178,7 @@ public class MyListTest {
      */
     @Test
     public void testRemoveAllElements() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         int elementsCount = 3;
         for (int i = 0; i < elementsCount; i++) {
             list.add(i);
@@ -198,7 +198,7 @@ public class MyListTest {
      */
     @Test
     public void testClearEmptyList() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.clear();
         assertEquals("Список должен быть пуст после очистки.", 0, list.getSize());
     }
@@ -209,7 +209,7 @@ public class MyListTest {
      */
     @Test
     public void testClearNonEmptyList() {
-        MyList<String> list = new MyList<>();
+        MyArrayList<String> list = new MyArrayList<>();
         list.add("a");
         list.add("b");
         list.add("c");
@@ -218,12 +218,12 @@ public class MyListTest {
     }
 
     /**
-     * Тестирует сортировку списка целых чисел.
+     * Тестирует сортировку слиянием списка целых чисел.
      * После сортировки элементы списка должны следовать в возрастающем порядке.
      */
     @Test
     public void testSortWithIntegers() {
-        MyList<Integer> list = new MyList<>();
+        MyArrayList<Integer> list = new MyArrayList<>();
         list.add(3);
         list.add(1);
         list.add(2);
@@ -232,28 +232,28 @@ public class MyListTest {
     }
 
     /**
-     * Тестирует сортировку большого количества данных.
+     * Тестирует сортировку слиянием большого количества данных.
      * После сортировки элементы списка должны следовать в возрастающем порядке.
      */
     @Test
     public void testSortWithLargeData() {
-        MyList<Integer> list = new MyList<>();
-        Integer[] data = new Integer[100000];
-        for (int i = 100000; i > 0; i--) {
+        MyArrayList<Integer> list = new MyArrayList<>();
+        Integer[] data = new Integer[10000000];
+        for (int i = 10000000; i > 0; i--) {
             list.add(i - 1);
-            data[100000 - i] = 100000 - i;
+            data[10000000 - i] = 10000000 - i;
         }
         list.sort();
         assertTrue("Список с большим кол-вом элементов должен быть отсортирован.", Arrays.equals(list.toArray(), data));
     }
 
     /**
-     * Тестирует сортировку списка строк с использованием компаратора обратного порядка.
+     * Тестирует сортировку слиянием списка строк с использованием компаратора обратного порядка.
      * После сортировки элементы списка должны следовать в убывающем лексикографическом порядке.
      */
     @Test
     public void testSortWithReverseOrderComparator() {
-        MyList<String> list = new MyList<>();
+        MyArrayList<String> list = new MyArrayList<>();
         list.add("b");
         list.add("c");
         list.add("a");
@@ -263,17 +263,76 @@ public class MyListTest {
     }
 
     /**
-     * Тестирует сортировку списка строк с использованием пользовательского компаратора по длине строки в обратном порядке.
+     * Тестирует сортировку слиянием списка строк с использованием пользовательского компаратора по длине строки в обратном порядке.
      * После сортировки элементы списка должны следовать в порядке убывания длины строки.
      */
     @Test
     public void testSortWithCustomReverseComparator() {
-        MyList<String> list = new MyList<>();
+        MyArrayList<String> list = new MyArrayList<>();
         list.add("bbb");
         list.add("aaaa");
         list.add("cc");
         Comparator<String> lengthComparator = (s1, s2) -> Integer.compare(s2.length(), s1.length());
         list.sort(lengthComparator);
+        assertTrue("Список должен быть отсортирован по длине строки в обратном порядке.", Arrays.equals(list.toArray(), new String[]{"aaaa", "bbb", "cc"}));
+    }
+    /**
+     * Тестирует быструю сортировку списка целых чисел.
+     * После сортировки элементы списка должны следовать в возрастающем порядке.
+     */
+    @Test
+    public void testQuickSortWithIntegers() {
+        MyArrayList<Integer> list = new MyArrayList<>();
+        list.add(3);
+        list.add(1);
+        list.add(2);
+        list.quickSort();
+        assertTrue("Список должен быть отсортирован.", Arrays.equals(list.toArray(), new Integer[]{1, 2, 3}));
+    }
+
+    /**
+     * Тестирует быструю сортировку большого количества данных.
+     * После сортировки элементы списка должны следовать в возрастающем порядке.
+     */
+    @Test
+    public void testQuickSortWithLargeData() {
+        MyArrayList<Integer> list = new MyArrayList<>();
+        Integer[] data = new Integer[10000];
+        for (int i = 10000; i > 0; i--) {
+            list.add(i - 1);
+            data[10000 - i] = 10000 - i;
+        }
+        list.quickSort();
+        assertTrue("Список с большим кол-вом элементов должен быть отсортирован.", Arrays.equals(list.toArray(), data));
+    }
+
+    /**
+     * Тестирует быструю сортировку списка строк с использованием компаратора обратного порядка.
+     * После сортировки элементы списка должны следовать в убывающем лексикографическом порядке.
+     */
+    @Test
+    public void testQuickSortWithReverseOrderComparator() {
+        MyArrayList<String> list = new MyArrayList<>();
+        list.add("b");
+        list.add("c");
+        list.add("a");
+        Comparator<String> reverseOrder = Comparator.reverseOrder();
+        list.quickSort(reverseOrder);
+        assertTrue("Список должен быть отсортирован в обратном порядке.", Arrays.equals(list.toArray(), new String[]{"c", "b", "a"}));
+    }
+
+    /**
+     * Тестирует быструю сортировку списка строк с использованием пользовательского компаратора по длине строки в обратном порядке.
+     * После сортировки элементы списка должны следовать в порядке убывания длины строки.
+     */
+    @Test
+    public void testQuickSortWithCustomReverseComparator() {
+        MyArrayList<String> list = new MyArrayList<>();
+        list.add("bbb");
+        list.add("aaaa");
+        list.add("cc");
+        Comparator<String> lengthComparator = (s1, s2) -> Integer.compare(s2.length(), s1.length());
+        list.quickSort(lengthComparator);
         assertTrue("Список должен быть отсортирован по длине строки в обратном порядке.", Arrays.equals(list.toArray(), new String[]{"aaaa", "bbb", "cc"}));
     }
 }

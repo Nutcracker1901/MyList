@@ -9,7 +9,7 @@ package org.example;
 
 import java.util.Comparator;
 
-public class MyList<T extends Comparable<? super T>> {
+public class MyLinkedList<T extends Comparable<? super T>> {
 
     private Node<T> head;
 
@@ -18,7 +18,7 @@ public class MyList<T extends Comparable<? super T>> {
     /**
      * Конструктор создает пустой список.
      */
-    public MyList() {
+    public MyLinkedList() {
         head = null;
         size = 0;
     }
@@ -131,6 +131,7 @@ public class MyList<T extends Comparable<? super T>> {
      *
      * @param comparator компаратор для определения порядка списка. Значение null указывает на то, что должен быть использован естественный порядок элементов
      */
+    @SuppressWarnings("unchecked")
     public void sort(Comparator<? super T> comparator) {
         if (size > 1) {
             Node<T>[] nodeArray = (Node<T>[]) new Node[size];
@@ -143,8 +144,8 @@ public class MyList<T extends Comparable<? super T>> {
             for (int width = 1; width < size; width = 2 * width) {
                 for (int i = 0; i < size; i = i + 2 * width) {
                     int left = i;
-                    int right = Math.min(i + width, (int) size);
-                    int end = Math.min(i + 2 * width, (int) size);
+                    int right = Math.min(i + width, size);
+                    int end = Math.min(i + 2 * width, size);
 
                     merge(nodeArray, left, right, end, comparator);
                 }
@@ -169,6 +170,7 @@ public class MyList<T extends Comparable<? super T>> {
      * @param end        конечный индекс правого подмассива
      * @param comparator компаратор для определения порядка элементов
      */
+    @SuppressWarnings("unchecked")
     private void merge(Node<T>[] nodeArray, int left, int right, int end, Comparator<? super T> comparator) {
         int leftEnd = right - 1;
         int tempPos = left;
@@ -202,13 +204,13 @@ public class MyList<T extends Comparable<? super T>> {
     /**
      * Возвращает массив, содержащий все элементы этого списка в правильной последовательности (от первого до последнего элемента).
      * Этот метод служит мостом между API, основанными на массивах, и API, основанными на коллекциях.
-     *
      * Возвращаемый массив будет "безопасным" в том смысле, что этот список не будет содержать ссылок на него.
      * (Другими словами, этот метод должен выделить новый массив). Таким образом, вызывающий может свободно изменять
      * возвращаемый массив.
      *
      * @return массив, содержащий все элементы этого списка в правильной последовательности
      */
+    @SuppressWarnings("unchecked")
     public T[] toArray() {
         T[] result = (T[]) new Comparable[size];
         Node<T> current = head;
